@@ -1,0 +1,140 @@
+Medicaid Forecasting Model Options
+
+This note summarizes the model options considered for the Medicaid enrollment
+and expenditure forecasting project.
+
+
+1. Prophet with policy changepoints
+
+Recommended use:
+- Monthly Medicaid enrollment forecast
+- State-level enrollment forecast
+- National enrollment forecast
+
+Why it is useful:
+Medicaid enrollment has important policy-related trend changes. For example,
+enrollment increased during the COVID continuous enrollment period and then
+declined during post-pandemic unwinding. Prophet allows the analyst to add
+known changepoints, so the model can reflect these policy events instead of
+treating the whole history as one smooth trend.
+
+How it would be used in this project:
+- Use monthly Total Medicaid Enrollment.
+- Use date as ds and enrollment as y.
+- Add Medicaid policy changepoints such as:
+  - 2020-03: COVID continuous enrollment period begins
+  - 2023-04: Medicaid unwinding begins
+  - 2024-07: possible later unwinding/tapering period
+
+How the changepoint dates were chosen:
+These changepoints are selected based on major Medicaid policy events, not
+chosen randomly and not automatically estimated by the current simple Python
+model.
+
+- 2020-03:
+  The COVID continuous enrollment condition began around March 2020. Under
+  FFCRA, states receiving the temporary FMAP increase generally could not
+  terminate most Medicaid enrollment after March 18, 2020.
+
+- 2023-04:
+  The continuous enrollment condition ended on March 31, 2023. States could
+  begin terminating Medicaid coverage for people no longer eligible starting
+  April 1, 2023. This is the main Medicaid unwinding start point.
+
+- 2024-07:
+  CMS described the unwinding/redetermination period as running roughly from
+  April 1, 2023 through July 31, 2024. This point is used as a possible later
+  unwinding or tapering point. It is a weaker modeling assumption than the
+  first two dates, but it helps represent the later stage of unwinding.
+
+Useful references:
+- Taylor, S. J., & Letham, B. (2018). Forecasting at Scale.
+  The American Statistician, 72(1), 37-45.
+  https://ideas.repec.org/a/taf/amstat/v72y2018i1p37-45.html
+- Prophet documentation:
+  https://facebook.github.io/prophet/
+- CMS fact sheet on COVID-19 flexibilities and the Medicaid continuous
+  enrollment condition:
+  https://www.cms.gov/newsroom/fact-sheets/cms-waivers-flexibilities-transition-forward-covid-19-public-health-emergency
+- Medicaid.gov COVID-19 Public Health Emergency Flexibilities and Returning to
+  Regular Operations:
+  https://www.medicaid.gov/resources-for-states/coronavirus-disease-2019-covid-19
+- CMS blog on Medicaid unwinding timeline:
+  https://www.cms.gov/newsroom/blog/calling-partners-help-people-stay-covered
+
+
+2. Holt damped trend exponential smoothing
+
+Recommended use:
+- Annual Medicaid expenditure forecast
+- A simple baseline for monthly enrollment
+- Short time series where a complex model may overfit
+
+Why it is useful:
+The expenditure data are annual, so there are fewer data points than enrollment.
+For Pennsylvania, the current clean expenditure series has yearly data rather
+than monthly data. A damped trend model is useful because it follows the recent
+level and direction of the data, but it gradually reduces the future trend so
+the forecast does not grow or decline in a straight line forever.
+
+How it would be used in this project:
+- Use annual MAP Total Net Expenditures Total Computable.
+- Fit a level and trend from historical annual spending.
+- Forecast future spending with a damped trend.
+- Add prediction intervals using historical forecast errors.
+
+Useful references:
+- Hyndman, R. J., Koehler, A. B., Ord, J. K., & Snyder, R. D. (2008).
+  Forecasting with Exponential Smoothing: The State Space Approach.
+  Springer.
+  https://link.springer.com/book/10.1007/978-3-540-71918-2
+- Hyndman, R. J., & Athanasopoulos, G. Forecasting: Principles and Practice.
+  https://otexts.com/fpp3/
+
+
+3. ARIMA / SARIMA
+
+Recommended use:
+- Comparison model for monthly enrollment
+- Comparison model for annual expenditure if enough yearly history is available
+
+Why it is useful:
+ARIMA is a classic time series forecasting model. It uses past values and past
+forecast errors to predict the future. SARIMA is the seasonal version of ARIMA,
+which can be useful if a monthly series has recurring seasonal patterns.
+
+Possible limitation:
+ARIMA/SARIMA can be less intuitive to explain than Prophet. It also does not
+automatically know about Medicaid policy events unless those events are added
+as external variables or handled through model design.
+
+How it would be used in this project:
+- Use ARIMA/SARIMA as a comparison model.
+- Compare model accuracy using backtesting.
+- Choose the final model based on forecast accuracy and interpretability.
+
+Useful references:
+- Hyndman, R. J., & Khandakar, Y. (2008). Automatic Time Series Forecasting:
+  The forecast Package for R. Journal of Statistical Software, 27(3).
+  https://ideas.repec.org/a/jss/jstsof/v027i03.html
+- Example health expenditure forecasting with ARIMA:
+  https://pubmed.ncbi.nlm.nih.gov/32257167/
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC6662543/
+
+
+Suggested model choice for this project
+
+Enrollment:
+Use Prophet with policy changepoints as the main model. Compare it with Holt
+damped trend and/or SARIMA if time allows.
+
+Expenditure:
+Use Holt damped trend exponential smoothing as the main model because the
+expenditure data are annual and have fewer observations. Compare it with ARIMA
+or a simple trend baseline if time allows.
+
+Reasonable final explanation:
+Monthly enrollment is modeled with Prophet because Medicaid enrollment has
+policy-related structural changes. Annual expenditure is modeled with damped
+trend exponential smoothing because the yearly spending series is shorter and a
+simple, interpretable model is less likely to overfit.

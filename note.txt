@@ -1,0 +1,17 @@
+Current analysis scope (updated October 14, 2026)
+
+All existing enrollment and expenditure forecasts now use Medicaid + CHIP combined.
+Enrollment retains Total Medicaid Enrollment, Total CHIP Enrollment, and Total Medicaid and CHIP Enrollment. Only updated (U) records from June 2017 onward are retained.
+Expenditure retains original Medicaid MAP and adds CHIP components and the combined total in data/clean/expenditure_clean_medicaid_chip_total.csv, FY1997–FY2024.
+CHIP = MCHIP C-Total Net + MCHIP 20% T-Total Net Expenditures (where reported) + separate CHIP Total. The separate CHIP total includes reported administration; Medicaid ADM remains excluded, consistent with the original MAP series. Therefore the combined expenditure is not a pure benefits-only measure.
+National results use the same 50 states plus DC as the enrollment data, excluding expenditure-only territories.
+Per-enrollee spending divides fiscal-year expenditure by mean monthly combined enrollment from the same federal fiscal year (October–September). FY2017 has only June–September (4 months) and is marked as partial coverage.
+Existing models, settings, forecast horizons, and output filenames are retained. Forecast intervals remain the original model's approximate intervals.
+
+Rebuild all outputs and the advisor Word document:
+python3 -m pip install -r requirements.txt
+python3 refresh_results.py
+
+Sources:
+https://www.medicaid.gov/medicaid/financial-management/state-budget-expenditure-reporting-for-medicaid-and-chip/expenditure-reports-mbes/cbes
+https://www.medicaid.gov/medicaid/national-medicaid-chip-program-information/medicaid-chip-enrollment-data/monthly-medicaid-chip-application-eligibility-determination-and-enrollment-reports-data

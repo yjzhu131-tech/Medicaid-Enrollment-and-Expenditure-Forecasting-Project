@@ -1,0 +1,20 @@
+Data scope: Medicaid + CHIP combined.
+CHIP expenditure = MCHIP + MCHIP 20% + separate CHIP (including its reported administration).
+Medicaid expenditure = MAP, excluding Medicaid ADM. These are reported net expenditures.
+New York Medicaid + CHIP Annual Spending per Average Enrollee
+
+Calculation:
+Annual spending per average enrollee =
+annual Medicaid and CHIP Total Net Expenditures Total Computable / average monthly Medicaid and CHIP enrollment for the same federal fiscal year.
+
+Data used:
+- Expenditure: New York annual Medicaid and CHIP Total Net Expenditures Total Computable.
+- Enrollment: New York monthly Total Medicaid and CHIP Enrollment.
+
+Years shown:
+2017 to 2024.
+
+Important note:
+Enrollment data are monthly and expenditure data are annual. This chart uses the
+average monthly enrollment within each federal fiscal year (October–September) as the denominator. Years with fewer
+than 12 enrollment months are included but marked in the table.

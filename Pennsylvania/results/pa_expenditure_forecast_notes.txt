@@ -1,0 +1,25 @@
+Data scope: Medicaid + CHIP combined.
+CHIP expenditure = MCHIP + MCHIP 20% + separate CHIP (including its reported administration).
+Medicaid expenditure = MAP, excluding Medicaid ADM. These are reported net expenditures.
+Pennsylvania Expenditure Forecast Model
+
+Model included:
+Holt-damped trend exponential smoothing
+
+Expenditure data:
+Annual Pennsylvania Medicaid and CHIP Total Net Expenditures Total Computable, FY1997 to FY2024.
+
+Why this model is used:
+Pennsylvania expenditure data have one observation per fiscal year, so there are
+far fewer data points than the monthly enrollment series. Holt-damped trend
+exponential smoothing is used because it gives a simple, interpretable trend
+forecast while damping long-run growth instead of extrapolating an aggressive
+straight-line trend.
+
+Model settings:
+alpha = 0.6
+beta = 0.3
+phi = 0.85
+
+Model residual standard deviation:
+Holt-damped trend = $1,146,368,833

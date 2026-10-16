@@ -1,0 +1,29 @@
+Data scope: Medicaid + CHIP combined.
+CHIP expenditure = MCHIP + MCHIP 20% + separate CHIP (including its reported administration).
+Medicaid expenditure = MAP, excluding Medicaid ADM. These are reported net expenditures.
+Pennsylvania Expenditure Forecast Model
+
+Model included:
+Prophet-style policy changepoint regression
+
+Expenditure data:
+Annual Pennsylvania Medicaid and CHIP Total Net Expenditures Total Computable, FY1997 to FY2024.
+
+Why this model is included:
+This model is included as an additional Pennsylvania expenditure forecast using
+the same Prophet-style policy changepoint logic as the enrollment forecast. The
+expenditure data are annual, so policy dates are converted to fiscal years.
+
+Policy changepoints:
+- FY2020: COVID continuous enrollment begins
+- FY2023: Medicaid unwinding begins
+- FY2024: later unwinding/taper point
+
+Important modeling note:
+Because expenditure has only one observation per fiscal year, this model has
+fewer data points than the monthly enrollment model. It is useful for comparing
+policy-driven trend assumptions, but it should be interpreted with more caution
+than the monthly enrollment changepoint forecast.
+
+Policy model residual standard deviation:
+Prophet-style policy changepoint regression = $1,601,366,786

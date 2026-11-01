@@ -4,6 +4,12 @@ Analyze historical Medicaid and CHIP enrollment and spending, and forecast trend
 
 The project covers **New York, Illinois, Washington, and Pennsylvania**, with additional national forecasts.
 
+## Read the Article
+
+[Medicaid and CHIP: Fewer Enrollees, Continued Spending Pressure](reports/medicaid-state-trends.html)
+
+To read the formatted article with all charts, open the link above, click **Download raw file** on GitHub, and open the downloaded HTML file in your web browser. If you have downloaded or cloned this repository, double-click `reports/medicaid-state-trends.html` to open it directly. All charts are embedded in the file, so it can be read offline.
+
 ## What This Project Does
 
 - Cleans monthly enrollment and annual expenditure data.
